@@ -1,0 +1,107 @@
+
+**Files to Create:**
+
+1. `fa.v` – 1-bit Full Adder (submodule)
+2. `fa_4bit.v` – Top-level 4-bit adder
+3. `fa_test.v` – Testbench
+
+---
+
+## 🖥️ **Terminal Procedure:**
+
+### **A) Functional Simulation (Using Cadence Incisive)**
+
+#### 1. **Start Cadence Tools**
+
+```bash
+csh
+source /home/install/cshrc
+```
+
+#### 2. **Create Source Files**
+
+```bash
+gedit fa.v
+gedit fa_4bit.v
+gedit fa_test.v
+```
+
+#### 3. **Launch Simulation Tool**
+
+```bash
+nclaunch -new &
+```
+
+#### 4. **Compile Verilog Files**
+
+```bash
+ncverilog +access+rwc -compile fa.v
+ncverilog +access+rwc -compile fa_4bit.v
+ncverilog +access+rwc -compile fa_test.v
+```
+
+#### 5. **Perform Simulation via GUI**
+
+* Use *nclaunch* to perform:
+
+  * Compilation
+  * Elaboration
+  * Simulation
+  * View waveforms
+
+---
+
+### **B) Synthesis (Using Cadence Genus)**
+
+#### 1. **Start Genus**
+
+```bash
+csh
+source /home/install/cshrc
+genus -gui
+```
+
+#### 2. **Create Constraint File**
+
+```bash
+gedit constraints_top.sdc
+```
+
+**Example contents:**
+
+```tcl
+create_clock -name clk -period 10.000 [get_ports clk]
+set_input_delay 2.5 -clock clk [all_inputs]
+set_output_delay 2.5 -clock clk [all_outputs]
+```
+
+ 3. **Run Genus Synthesis Commands**
+
+```tcl
+read_libs /home/install/FOUNDRY/digital/90nm/dig/lib/slow.lib
+read_hdl fa_4bit.v
+elaborate
+read_sdc constraints_top.sdc
+set_db syn_generic_effort medium
+set_db syn_map_effort medium
+set_db syn_opt_effort medium
+syn_generic
+syn_map
+syn_opt
+report_timing > fa_timing.rep
+report_area > fa_area.rep
+report_power > fa_power.rep
+write_hdl > fa_netlist.v
+write_sdc > fa_output.sdc
+```
+
+---
+
+ **Final Outputs:**
+
+* `fa_netlist.v` – Synthesized netlist
+* `fa_timing.rep` – Timing report (includes critical path)
+* `fa_area.rep` – Area report
+* `fa_power.rep` – Power consumption report
+
+---
