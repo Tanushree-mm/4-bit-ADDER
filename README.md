@@ -9,3 +9,6 @@
 
 
 **SYNTHESIS RTL SCHEMATIC**
+
+<img width="256" height="313" alt="Image" src="https://github.com/user-attachments/assets/ac8eda60-5262-4c68-8465-9929446499d6" />
+
