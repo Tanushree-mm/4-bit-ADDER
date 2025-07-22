@@ -1,5 +1,15 @@
 # 4-bit-ADDER
 
+
+**OBJECTIVE**
+
+**Objective:**
+
+* Write Verilog code for a 4-bit adder.
+* Verify functionality using a test bench.
+* Perform synthesis and analyze: critical path, max frequency, total cells, power, and area.
+
+
 **DESCRIPTION**
 
 A full adder is a combinational circuit that performs the arithmetic sum of three input bits
